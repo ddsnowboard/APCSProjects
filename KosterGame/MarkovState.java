@@ -1,6 +1,7 @@
 // NB That this is a special MarkovState. It returns the thing that beats the next thing in rock 
-// paper scissors, not the thing itself. 
+// paper scissors, not the thing itself. DO NOT copy and paste for a standard Markov Chain. 
 import java.util.*;
+
 class MarkovState {
     private Hashtable<String, Integer> outcomes;
     public MarkovState() {
@@ -38,6 +39,8 @@ class MarkovState {
             case KosterGame.SCISSORS:
                 return KosterGame.ROCK;
         }
+        // This should really throw an error instead of just this. This isn't really how it's supposed
+        // to work. 
         System.out.printf("HEEEEEY THERE!!!! HEEEEREE'S OUTCOMES!!! %s", outcomes.toString());
         return KosterGame.SCISSORS;
     }
