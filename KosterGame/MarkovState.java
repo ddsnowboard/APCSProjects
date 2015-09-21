@@ -3,11 +3,11 @@
 import java.util.*;
 
 class MarkovState {
-    private Hashtable<String, Integer> outcomes;
+    private Hashtable<KosterGame.Plays, Integer> outcomes;
     public MarkovState() {
         outcomes = new Hashtable<>();
     }
-    public void add(String outcome)
+    public void add(KosterGame.Plays outcome)
     {
         if(outcomes.containsKey(outcome))
         {
@@ -18,12 +18,12 @@ class MarkovState {
             outcomes.put(outcome, 1);
         }
     }
-    public String getNext()
+    public KosterGame.Plays getNext()
     {
-        Set<String> keys = outcomes.keySet();
+        Set<KosterGame.Plays> keys = outcomes.keySet();
         int max = 0;
-        String most = "";
-        for(String s : keys)
+        KosterGame.Plays most = null;
+        for(KosterGame.Plays s : keys)
         {
             if(outcomes.get(s) > max) {
                 max = outcomes.get(s);
@@ -32,16 +32,16 @@ class MarkovState {
         }
         switch(most)
         {
-            case KosterGame.ROCK:
-                return KosterGame.PAPER;
-            case KosterGame.PAPER:
-                return KosterGame.SCISSORS;
-            case KosterGame.SCISSORS:
-                return KosterGame.ROCK;
+            case ROCK:
+                return KosterGame.Plays.PAPER;
+            case PAPER:
+                return KosterGame.Plays.SCISSORS;
+            case SCISSORS:
+                return KosterGame.Plays.ROCK;
         }
         // This should really throw an error instead of just this. This isn't really how it's supposed
         // to work. 
         System.out.printf("HEEEEEY THERE!!!! HEEEEREE'S OUTCOMES!!! %s", outcomes.toString());
-        return KosterGame.SCISSORS;
+        return KosterGame.Plays.SCISSORS;
     }
 }

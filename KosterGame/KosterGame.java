@@ -10,44 +10,23 @@ public class KosterGame {
         Hashtable<Plays, MarkovState> states = new Hashtable<>();
         fillTable(states);
         // The last thing the human played. 
-        String last = "";
+        Plays last = null;
         // The current thing that the human is playing. 
-        String humanPlay;
-        String computerPlay;
+        Plays humanPlay;
+        Plays computerPlay;
         print("Let's play rock paper scissors\n");
         // This saves one byte off the shortest equivalent while() loop. That means I that, over
         // the entire program, I saved on the order of four bytes!
         for(;;)
         {
             print("\n\n\n");
-            // I'll give you $100 if this shows up on the AP. 
-            outer:
-            {
-                for(;;)
-                {
-                    humanPlay = getString("What's your play?");
-                    switch(humanPlay.toLowerCase()) {
-                        case ROCK:
-                            humanPlay = ROCK;
-                            break outer;
-                        case PAPER:
-                            humanPlay = PAPER;
-                            break outer;
-                        case SCISSORS:
-                            humanPlay = SCISSORS;
-                            break outer;
-                        default:
-                            print("That wasn't an option. Try again.\n");
-                            break;
-                    }
-                }
-            }
-            if(last.equals("")) // ie this is the first game.
+            humanPlay = getPlay();
+            if(last == null) // ie this is the first game.
             {
                 // http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html
                 Random random = new Random();
                 // Yo dawg, I heard you liked ternary operators. 
-                computerPlay = random.nextInt(3) == 0 ? ROCK : random.nextInt(3) == 1 ? PAPER : SCISSORS;
+                computerPlay = random.nextInt(3) == 0 ? Plays.ROCK : random.nextInt(3) == 1 ? Plays.PAPER : Plays.SCISSORS;
             }
             else
             {
@@ -94,18 +73,18 @@ public class KosterGame {
     }
     private static void fillTable(Hashtable<Plays, MarkovState> table)
     {
-        for(Plays p : Plays)
+        for(Plays p : Plays.values())
         {
             table.put(p, new MarkovState());
         }
     }
     private static void printWinner(Plays humanPlay, Plays computerPlay)
     {
-        if(humanPlay.equals(computerPlay))
+        if(humanPlay == computerPlay)
         {
             print("It's a draw!");
         }
-        else if(humanPlay.equals(ROCK))
+        else if(humanPlay == Plays.ROCK)
         {
             switch(computerPlay){
                 case PAPER:
@@ -116,7 +95,7 @@ public class KosterGame {
                     break;
             }
         }
-        else if(humanPlay.equals(PAPER))
+        else if(humanPlay == Plays.PAPER)
         {
             switch(computerPlay){
                 case SCISSORS:
@@ -126,7 +105,7 @@ public class KosterGame {
                     print("Paper covers rock. You win.");
             }
         }
-        else if(humanPlay.equals(SCISSORS))
+        else if(humanPlay == Plays.SCISSORS)
         {
             switch(computerPlay)
             {
@@ -141,19 +120,19 @@ public class KosterGame {
         // Don't repeat yourself...
         print("\n");
     }
-    private Plays getPlay()
+    static private Plays getPlay()
     {
         String input = getString("What's your play?");
         switch(input.toLowerCase()) {
             case "rock":
                 return Plays.ROCK;
-                break;
             case "paper":
                 return Plays.PAPER;
-                break;
             case "scissors":
                 return Plays.SCISSORS;
-                break;
+            default:
+                print("That wasn't an option. Try again.\n");
+                return getPlay();
         }
     }
 }
