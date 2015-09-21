@@ -2,14 +2,12 @@ import java.util.*;
 import java.lang.NumberFormatException;
 // Rock paper scissors Markov chains, anyone?
 public class KosterGame {
-    public static final String ROCK = "rock";
-    public static final String PAPER = "paper";
-    public static final String SCISSORS = "scissors";
+    public enum Plays {ROCK, PAPER, SCISSORS};
     public static void main(String[] args)
     {
         String name = getString("What's your name?");
         System.out.printf("Your name has %d characters, in case you didn't know. Now that that's out of the way, we can do something more interesting...%n", name.length());
-        Hashtable<String, MarkovState> states = new Hashtable<>();
+        Hashtable<Plays, MarkovState> states = new Hashtable<>();
         fillTable(states);
         String last = "";
         String computerPlay;
@@ -86,14 +84,14 @@ outer:
     {
         System.out.printf(thing);
     }
-    private static void fillTable(Hashtable<String, MarkovState> table)
+    private static void fillTable(Hashtable<Plays, MarkovState> table)
     {
-        for(String s : new String[] {ROCK, PAPER, SCISSORS})
+        for(Plays p : Plays)
         {
-            table.put(s, new MarkovState());
+            table.put(p, new MarkovState());
         }
     }
-    private static void printWinner(String humanPlay, String computerPlay)
+    private static void printWinner(Plays humanPlay, Plays computerPlay)
     {
         if(humanPlay.equals(computerPlay))
         {
@@ -134,5 +132,20 @@ outer:
         }
         // Don't repeat yourself...
         print("\n");
+    }
+    private Plays getPlay()
+    {
+        String input = getString("What's your play?");
+        switch(input.toLowerCase()) {
+            case "rock":
+                return Plays.ROCK;
+                break;
+            case "paper":
+                return Plays.PAPER;
+                break;
+            case "scissors":
+                return Plays.SCISSORS;
+                break;
+        }
     }
 }
