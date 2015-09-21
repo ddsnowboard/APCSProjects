@@ -38,7 +38,8 @@ public class KosterGame {
             System.out.printf("I play %s%n", computerPlay);
             last = humanPlay;
             printWinner(humanPlay, computerPlay);
-            if(!getString("Do you want to play again? y/n").toLowerCase().equals("y"))
+            String again = getString("Do you want to play again? y/n").toLowerCase();
+            if(!(again.equals("y") || again.equals("")))
                 break;
         }
     }
@@ -122,13 +123,13 @@ public class KosterGame {
     }
     static private Plays getPlay()
     {
-        String input = getString("What's your play?");
-        switch(input.toLowerCase()) {
-            case "rock":
+        String input = getString("Do you want to play (r)ock, (p)aper, or (s)cissors?");
+        switch(input.toLowerCase().substring(0, 1)) {
+            case "r":
                 return Plays.ROCK;
-            case "paper":
+            case "p":
                 return Plays.PAPER;
-            case "scissors":
+            case "s":
                 return Plays.SCISSORS;
             default:
                 print("That wasn't an option. Try again.\n");
