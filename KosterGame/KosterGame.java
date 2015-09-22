@@ -20,8 +20,7 @@ public class KosterGame {
         for(;;)
         {
             print("\n\n\n");
-            humanPlay = getPlay();
-            if(last == null) // ie this is the first game.
+            if(last == null || !states.get(last).isInitialized()) // ie this is the first game or I don't have much information. 
             {
                 // http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html
                 Random random = new Random();
@@ -32,8 +31,12 @@ public class KosterGame {
             {
                 // This is kinda cheaty, but if I don't do this, there will be null pointers and stuff everywhere. 
                 // I need to fix this. 
-                states.get(last).add(humanPlay);
                 computerPlay = states.get(last).getNext();
+            }
+            humanPlay = getPlay();
+            if(last != null)
+            {
+                states.get(last).add(humanPlay);
             }
             System.out.printf("I play %s%n", computerPlay);
             last = humanPlay;

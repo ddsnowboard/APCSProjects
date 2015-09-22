@@ -4,11 +4,14 @@ import java.util.*;
 
 class MarkovState {
     private Hashtable<KosterGame.Plays, Integer> outcomes;
+    private boolean isInitialized;
     public MarkovState() {
         outcomes = new Hashtable<>();
+        isInitialized = false;
     }
     public void add(KosterGame.Plays outcome)
     {
+        isInitialized = true;
         if(outcomes.containsKey(outcome))
         {
             outcomes.put(outcome, outcomes.get(outcome) + 1);
@@ -43,5 +46,13 @@ class MarkovState {
         // to work. 
         System.out.printf("HEEEEEY THERE!!!! HEEEEREE'S OUTCOMES!!! %s", outcomes.toString());
         return KosterGame.Plays.SCISSORS;
+    }
+    public boolean isInitialized()
+    {
+        return isInitialized;
+    }
+    public void setInitialized(boolean initialized)
+    {
+        isInitialized = initialized;
     }
 }
