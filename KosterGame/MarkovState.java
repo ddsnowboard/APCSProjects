@@ -2,7 +2,7 @@
 // paper scissors, not the thing itself. DO NOT copy and paste for a standard Markov Chain. 
 import java.util.*;
 
-class MarkovState {
+public class MarkovState {
     private Hashtable<KosterGame.Plays, Integer> outcomes;
     private boolean isInitialized;
     public MarkovState() {
@@ -21,7 +21,7 @@ class MarkovState {
             outcomes.put(outcome, 1);
         }
     }
-    public KosterGame.Plays getNext()
+    public KosterGame.Plays getNext() throws Exception
     {
         Set<KosterGame.Plays> keys = outcomes.keySet();
         int max = 0;
@@ -42,10 +42,7 @@ class MarkovState {
             case SCISSORS:
                 return KosterGame.Plays.ROCK;
         }
-        // This should really throw an error instead of just this. This isn't really how it's supposed
-        // to work. 
-        System.out.printf("HEEEEEY THERE!!!! HEEEEREE'S OUTCOMES!!! %s", outcomes.toString());
-        return KosterGame.Plays.SCISSORS;
+        throw new Exception("Something bad happened! I don't know why!");
     }
     public boolean isInitialized()
     {

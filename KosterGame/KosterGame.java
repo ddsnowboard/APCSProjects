@@ -2,11 +2,12 @@ import java.util.*;
 import java.lang.NumberFormatException;
 // Rock paper scissors Markov chains, anyone?
 public class KosterGame {
-    public enum Plays {ROCK, PAPER, SCISSORS};
-    public static void main(String[] args)
+    public enum Plays { ROCK, PAPER, SCISSORS };
+    public static void main(String[] args) throws Exception
     {
         String name = getString("What's your name?");
-        System.out.printf("Your name has %d characters, in case you didn't know. Now that that's out of the way, we can do something more interesting...%n", name.length());
+        System.out.printf("Your name has %d characters, in case you didn't know. Now that that's out of the way, we can do something more interesting...%n",
+                          name.length());
         Hashtable<Plays, MarkovState> states = new Hashtable<>();
         fillTable(states);
         // The last thing the human played. 
@@ -29,8 +30,6 @@ public class KosterGame {
             }
             else
             {
-                // This is kinda cheaty, but if I don't do this, there will be null pointers and stuff everywhere. 
-                // I need to fix this. 
                 computerPlay = states.get(last).getNext();
             }
             humanPlay = getPlay();
@@ -43,7 +42,9 @@ public class KosterGame {
             printWinner(humanPlay, computerPlay);
             String again = getString("Do you want to play again? y/n").toLowerCase();
             if(!(again.equals("y") || again.equals("")))
+            {
                 break;
+            }
         }
     }
 
@@ -75,6 +76,8 @@ public class KosterGame {
     {
         System.out.print(thing);
     }
+    
+    // Populates the tables
     private static void fillTable(Hashtable<Plays, MarkovState> table)
     {
         for(Plays p : Plays.values())
