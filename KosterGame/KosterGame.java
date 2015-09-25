@@ -7,7 +7,7 @@ public class KosterGame {
     {
         String name = getString("What's your name?");
         System.out.printf("Your name has %d characters, in case you didn't know. Now that that's out of the way, we can do something more interesting...%n",
-                          name.length());
+                name.length());
         Hashtable<Plays, MarkovState> states = new Hashtable<>();
         fillTable(states);
         // The last thing the human played. 
@@ -76,7 +76,7 @@ public class KosterGame {
     {
         System.out.print(thing);
     }
-    
+
     // Populates the tables
     private static void fillTable(Hashtable<Plays, MarkovState> table)
     {
@@ -130,16 +130,19 @@ public class KosterGame {
     static private Plays getPlay()
     {
         String input = getString("Do you want to play (r)ock, (p)aper, or (s)cissors?");
-        switch(input.toLowerCase().substring(0, 1)) {
-            case "r":
-                return Plays.ROCK;
-            case "p":
-                return Plays.PAPER;
-            case "s":
-                return Plays.SCISSORS;
-            default:
-                print("That wasn't an option. Try again.\n");
-                return getPlay();
+        if(input.length() > 0){
+            switch(input.toLowerCase().substring(0, 1)) {
+                case "r":
+                    return Plays.ROCK;
+                case "p":
+                    return Plays.PAPER;
+                case "s":
+                    return Plays.SCISSORS;
+                default:
+                    break;
+            }
         }
+        print("That wasn't an option. Try again.\n");
+        return getPlay();
     }
 }
