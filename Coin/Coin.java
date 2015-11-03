@@ -1,11 +1,8 @@
 import java.util.Random;
-class Coin {
-    private Random random;
+class Coin extends Flippable {
     public Coin()
     {
-        this.random = new Random();
-    }
-    public boolean flip(){
-        return random.nextBoolean();
+        super();
+        this.sides = 2;
     }
 }

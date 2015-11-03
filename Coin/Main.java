@@ -1,10 +1,10 @@
 class Main {
     public static void main(String[] args)
     {
-        Coin coin = new Coin();
+        Dice dice = new Dice();
         for(int i = 0;i < 100; i++)
         {
-            System.out.println(coin.flip());
+            System.out.println(dice.flip());
         }
     }
 }
