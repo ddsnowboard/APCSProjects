@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class Flippable {
+abstract class Flippable {
     private Random random;
     protected int sides;
     public Flippable()
