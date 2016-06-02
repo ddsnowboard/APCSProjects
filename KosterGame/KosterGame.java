@@ -124,7 +124,6 @@ public class KosterGame {
                     break;
             }
         }
-        // Don't repeat yourself...
         print("\n");
     }
     static private Plays getPlay()

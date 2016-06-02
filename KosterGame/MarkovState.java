@@ -1,5 +1,8 @@
 // NB That this is a special MarkovState. It returns the thing that beats the next thing in rock 
 // paper scissors, not the thing itself. DO NOT copy and paste for a standard Markov Chain. 
+
+
+
 import java.util.*;
 
 public class MarkovState {
